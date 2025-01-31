@@ -2,6 +2,7 @@ import {
 	createNewEnrollment,
 	deleteEnrollment,
 	getAllEnrollments,
+	getEnrollmentsStudent,
 	updateEnrollment,
 } from "../controllers/enrollment.controller.js";
 import { z } from "zod";
@@ -26,6 +27,10 @@ const enrollmentResponseSchema = z.object({
 	enrollmentDate: z.date(),
 });
 
+
+//TODO: enrollments response schema
+
+
 export default function (fastify, options) {
 	fastify.get(
 		"/",
@@ -38,6 +43,9 @@ export default function (fastify, options) {
 		},
 		getAllEnrollments,
 	);
+
+	fastify.get("/students", getEnrollmentsStudent)
+
 
 	fastify.post(
 		"/create",

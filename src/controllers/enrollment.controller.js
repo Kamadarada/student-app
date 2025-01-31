@@ -2,6 +2,7 @@ import {
 	createEnrollmentService,
 	deleteEnrollmentService,
 	getAllEnrollmentsService,
+	getEnrollmentStudentService,
 	updateEnrollmentService,
 } from "../services/enrollment.service.js";
 
@@ -64,6 +65,19 @@ export async function updateEnrollment(request, reply) {
 	} catch (error) {
 		reply.status(500).send({
 			message: `Failed to update enrollment ${enrollmentId}`,
+			error: error.message,
+		});
+	}
+}
+
+
+export async function getEnrollmentsStudent(_, reply){
+	try{
+		const enrollmentStudents = await getEnrollmentStudentService();
+		reply.status(200).send(enrollmentStudents)
+	} catch(error) {
+		reply.status(500).send({
+			message: `Failed to get enrollments students`,
 			error: error.message,
 		});
 	}
