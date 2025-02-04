@@ -18,8 +18,6 @@ const enrollmentBodySchema = z.object({
 	enrollmentDate: z.date(),
 });
 
-//json to create for me
-
 const enrollmentResponseSchema = z.object({
 	id: z.string(),
 	studentId: z.string(),
@@ -28,8 +26,16 @@ const enrollmentResponseSchema = z.object({
 });
 
 
-//TODO: enrollments response schema
-
+const enrollmentStudentSchema = z.object({
+	disciplineId: z.string(),
+	disciplineName: z.string(),
+	students: z.array(z.object({
+		id: z.string(),
+		name: z.string(),
+		email: z.string(),
+		enrollmentDate: z.date()
+	}))
+})
 
 export default function (fastify, options) {
 	fastify.get(
@@ -44,7 +50,13 @@ export default function (fastify, options) {
 		getAllEnrollments,
 	);
 
-	fastify.get("/students", getEnrollmentsStudent)
+	fastify.get("/students", {
+		schema: {
+			response: {
+				200: zodToJsonSchema(z.array(enrollmentStudentSchema))
+			}
+		}
+	} , getEnrollmentsStudent)
 
 
 	fastify.post(
