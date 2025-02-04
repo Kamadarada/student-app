@@ -13,7 +13,7 @@ await fastify.register(cors, {
 });
 
 //health check
-fastify.get("/health", (request, reply) => {
+fastify.get("/", (request, reply) => {
 	return reply.status(200).send({ message: "Server is healthy!" });
 });
 
