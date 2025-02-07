@@ -9,7 +9,8 @@ const fastify = Fastify({
 });
 
 await fastify.register(cors, {
-	origin: "http://localhost:3000",
+	origin: "*",
+	credentials: true,
 });
 
 //health check
@@ -21,6 +22,5 @@ fastify.get("/", (request, reply) => {
 fastify.register(studentRoutes, { prefix: "/api/students" });
 fastify.register(disciplineRoutes, { prefix: "/api/disciplines" });
 fastify.register(enrollmentRoutes, { prefix: "/api/enrollments" });
-
 
 export default fastify;
